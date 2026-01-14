@@ -26,7 +26,7 @@ public class SiengeLogin {
 
         while (!loginSucesso && tentativa < 5) {
             tentativa++;
-            System.out.println(">>> Login: Tentativa " + tentativa + "...");
+            System.out.println(">>> Tentativa de Login: " + tentativa + "...");
 
             try {
                 abrirPaginaComRecuperacao();

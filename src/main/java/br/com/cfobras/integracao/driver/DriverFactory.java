@@ -23,7 +23,11 @@ public class DriverFactory {
         prefs.put("download.default_directory", DOWNLOAD_PATH);
         prefs.put("download.prompt_for_download", false);
         prefs.put("plugins.always_open_pdf_externally", true);
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        prefs.put("profile.password_manager_leak_detection", false);
         options.setExperimentalOption("prefs", prefs);
+
 
         return new ChromeDriver(options);
     }

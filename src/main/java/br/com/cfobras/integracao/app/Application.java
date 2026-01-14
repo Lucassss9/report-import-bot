@@ -60,7 +60,7 @@ public class Application {
             relatorios = relatorioFinder.listarRelatoriosParaImportar();
             System.out.println("Total de Relatorios: " + relatorios.size());
             for (File arquivo : relatorios) {
-                System.out.println("Relatorio: " + arquivo.getName() + "| Caminho: " +  arquivo.getAbsolutePath());
+                System.out.println("Relatorio: " + arquivo.getName() + " || Caminho: " +  arquivo.getAbsolutePath());
             }
 
         } catch (Exception e) {
