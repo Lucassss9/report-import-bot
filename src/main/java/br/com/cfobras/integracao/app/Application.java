@@ -1,8 +1,10 @@
 package br.com.cfobras.integracao.app;
 
 import br.com.cfobras.integracao.driver.DriverFactory;
+import br.com.cfobras.integracao.login.CFObrasLogin;
 import br.com.cfobras.integracao.login.SiengeLogin;
 import br.com.cfobras.integracao.menu.SiengeMenu;
+import br.com.cfobras.integracao.pages.CFObrasSaldosPage;
 import br.com.cfobras.integracao.pages.SaldoContratosPage;
 import br.com.cfobras.integracao.pages.SaldoPedidosPage;
 import br.com.cfobras.integracao.utils.FileHelper;
@@ -62,6 +64,9 @@ public class Application {
             for (File arquivo : relatorios) {
                 System.out.println("Relatorio: " + arquivo.getName() + " || Caminho: " +  arquivo.getAbsolutePath());
             }
+
+            new CFObrasLogin(driver).login();
+            new CFObrasSaldosPage(driver).importarTodosRelatorios();
 
         } catch (Exception e) {
             System.out.println("\n[ERRO GERAL] " + e.getClass().getSimpleName() + ": " + e.getMessage());

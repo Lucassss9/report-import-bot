@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RelatorioFinder {
-    private static final String DOWNLOAD_DIR = System.getProperty("user.dir") + File.separator + "downloads";
+        private static final String DOWNLOAD_DIR = System.getProperty("user.dir") + File.separator + "downloads";
 
     public List<File> listarRelatoriosParaImportar(){
         File pasta = new File(DOWNLOAD_DIR);

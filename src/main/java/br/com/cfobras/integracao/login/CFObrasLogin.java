@@ -1,6 +1,7 @@
 package br.com.cfobras.integracao.login;
 
 import br.com.cfobras.integracao.config.AppConfig;
+import br.com.cfobras.integracao.utils.KeyboardHelper;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -24,12 +25,34 @@ public class CFObrasLogin {
     public void login() {
         driver.get(URL);
 
+        try {
+            Thread.sleep(1500);
+
+            String alertPopUp = driver.switchTo().alert().getText();
+            System.out.println("Aviso Pop Up: " + alertPopUp);
+
+            if (alertPopUp.contains("não tem permissão")) {
+                fecharAlertSeExistir();
+            } else {
+                System.out.println("Tentado fazer login...");
+            }
+        } catch (NoAlertPresentException e) {
+            System.out.println("Sem alerta...");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         boolean loginSucesso = false;
         int tentativa = 0;
 
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 
         while (!loginSucesso && tentativa < 5){
+            fecharAlertSeExistir();
+
+            new KeyboardHelper(driver).pressionarEsc();
+            new KeyboardHelper(driver).pressionarEsc();
+
             tentativa++;
             System.out.println(">>> Tentativa de Login: " + tentativa + "...");
 
@@ -46,7 +69,11 @@ public class CFObrasLogin {
 
                 break;
             } else if (estaNaTelaLogin) {
+                new KeyboardHelper(driver).pressionarEsc();
                 System.out.println("Fazendo Login no CF Obras...");
+
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginEmail")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("loginSenha")));
 
                 driver.findElement(By.id("loginEmail")).clear();
                 driver.findElement(By.id("loginSenha")).clear();
@@ -55,6 +82,8 @@ public class CFObrasLogin {
                 driver.findElement(By.id("loginSenha")).sendKeys(appConfig.getSenha());
 
                 driver.findElement(By.className("btn-login")).click();
+
+                new KeyboardHelper(driver).pressionarEsc();
 
                 fecharAlertSeExistir();
                 fecharAlertSeExistir();
